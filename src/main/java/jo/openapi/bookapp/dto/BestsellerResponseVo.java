@@ -1,14 +1,12 @@
 package jo.openapi.bookapp.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 
 @Data
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class BestsellerResponseVo {
