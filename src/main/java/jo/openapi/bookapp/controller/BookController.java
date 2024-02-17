@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 
@@ -46,13 +47,12 @@ public class BookController {
     public String search() {
         return "search";
     }
-    @GetMapping("/book/searchTest")
-    public ResponseEntity<SearchResponseVo> search(Model model) {
+
+    @GetMapping("/book/searchResult")
+    public String searchResult(@RequestParam(value = "keyword") String keyword, Model model) {
         SearchRequestVo searchRequestVo = new SearchRequestVo();
-        // ttbkey=[TTBKey]&Query=aladdin&QueryType=Title&MaxResults=10
-        // &start=1&SearchTarget=Book&output=xml&Version=20131101
         searchRequestVo.setTtbkey("");
-        searchRequestVo.setQuery("글");
+        searchRequestVo.setQuery(keyword);
         searchRequestVo.setQueryType("Title");
         searchRequestVo.setMaxResults("20");
         searchRequestVo.setStart("1");
@@ -64,7 +64,7 @@ public class BookController {
         ArrayList<SearchBookInfo> bookList = searchResponseVo.getItem();
         model.addAttribute("title", searchResponseVo.getTitle());
         model.addAttribute("bookList", bookList);
-        return ResponseEntity.ok(searchResponseVo);
+        return "search";
     }
 
 }

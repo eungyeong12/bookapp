@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+    }
+
+    /* 제목 스타일링 */
+    h1 {
+        color: #333;
+        text-align: center;
+    }
+
+    /* 책 카드 스타일링 */
+    .book-card {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 책 제목 스타일링 */
+    .book-title {
+        font-weight: bold;
+        font-size: 18px;
+        color: #007bff; /* Bootstrap primary color */
+        margin-bottom: 10px;
+    }
+
+    /* 책 이미지 스타일링 */
+    .book-image {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+    /* 책 정보 스타일링 */
+    .book-info {
+        font-size: 14px;
+        color: #555;
+    }
+</style>
+<body>
+<form action="/book/searchResult" method="GET">
+    <div class="search">
+        <input name ="keyword" type="text" placeholder="검색어를 입력해주세요" />
+    </div>
+</form>
+<br/>
+<div class="book-card" th:each="book, list: ${bookList}">
+    <p class="book-title" th:text="${book.getTitle}"}/>
+    <img class="book-image" th:src="${book.cover}"/>
+    <p class="book-info" th:text="${book.getAuthor}"/>
+    <p th:text="${book.pubDate}"/>
+    <p th:text="${book.publisher}"/>
+    <p th:text="${book.description}"/>
+</div>
+</body>
+</html>
