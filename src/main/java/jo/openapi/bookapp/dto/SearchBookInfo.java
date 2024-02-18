@@ -12,8 +12,6 @@ import java.util.ArrayList;
 public class SearchBookInfo {
     String title;
     String author;
-    String pubDate;
     String description;
     String cover;
-    String publisher;
 }

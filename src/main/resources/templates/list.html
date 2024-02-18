@@ -58,5 +58,22 @@
         <p th:text="${book.publisher}"/>
         <p th:text="${book.description}"/>
     </div>
+
+<div style="text-align: center">
+    <a th:href="@{/book/bestseller?(page=1)}"><<</a>
+
+    <span th:each="page: ${#numbers.sequence(1, endPage)}">
+
+            <span th:if="${page == currentPage}" th:text="${page}"></span>
+            <span th:unless="${page == currentPage}">
+        <a th:href="@{/book/bestseller?(page=${page})}" th:text="${page}"></a>
+            </span>
+        </span>
+
+    <a th:href="@{/book/bestseller?(page=${endPage})}"> >></a>
+</div>
+
+
+
 </body>
 </html>

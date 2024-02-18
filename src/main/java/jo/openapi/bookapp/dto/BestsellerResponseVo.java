@@ -11,6 +11,7 @@ import java.util.ArrayList;
 @NoArgsConstructor
 public class BestsellerResponseVo {
     String title;
+    String startIndex;
     String totalResults;
     String itemsPerPage;
     ArrayList<BestsellerBookInfo> item;

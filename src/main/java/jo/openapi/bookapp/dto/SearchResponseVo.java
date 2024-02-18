@@ -11,6 +11,7 @@ import java.util.ArrayList;
 @NoArgsConstructor
 public class SearchResponseVo {
     String title;
+    String startIndex;
     String totalResults;
     String itemsPerPage;
     String query;
