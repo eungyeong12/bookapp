@@ -64,21 +64,35 @@ public class BookController {
     }
 
     @GetMapping("/book/searchResult")
-    public String searchResult(@RequestParam(value = "keyword") String keyword, Model model) {
+    public String searchResult(@RequestParam(value = "keyword") String keyword, @RequestParam(value = "page", defaultValue = "1") String page, Model model) {
         SearchRequestVo searchRequestVo = new SearchRequestVo();
         searchRequestVo.setTtbkey(ttbkey);
         searchRequestVo.setQuery(keyword);
         searchRequestVo.setQueryType("Title");
         searchRequestVo.setMaxResults("20");
-        searchRequestVo.setStart("1");
+        searchRequestVo.setStart(page);
         searchRequestVo.setSearchTarget("Book");
         searchRequestVo.setOutput("js");
         searchRequestVo.setVersion("20131101");
 
         SearchResponseVo searchResponseVo = bookService.getSearchResult(searchRequestVo);
         ArrayList<SearchBookInfo> bookList = searchResponseVo.getItem();
+
+        int blockLimit = Integer.parseInt(searchResponseVo.getItemsPerPage());
+        int startPage = Integer.parseInt(searchResponseVo.getStartIndex());
+        int totalResult = Integer.parseInt(searchResponseVo.getTotalResults());
+        int endPage = (totalResult%blockLimit == 0) ? (totalResult/blockLimit) : (totalResult/blockLimit + 1);
+        int currentPage = Integer.valueOf(page);
+        int nextPage = currentPage + 1;
+        String query = searchResponseVo.getQuery();
+
         model.addAttribute("title", searchResponseVo.getTitle());
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
         model.addAttribute("bookList", bookList);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("nextPage", nextPage);
+        model.addAttribute("query", query);
         return "search";
     }
 

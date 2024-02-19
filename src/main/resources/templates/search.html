@@ -50,7 +50,7 @@
 <body>
 <form action="/book/searchResult" method="GET">
     <div class="search">
-        <input name ="keyword" type="text" placeholder="검색어를 입력해주세요" />
+        <input name ="keyword" type="text" placeholder="검색어를 입력해주세요" th:value="${query}"/>
     </div>
 </form>
 <br/>
@@ -59,6 +59,9 @@
     <img class="book-image" th:src="${book.cover}"/>
     <p class="book-info" th:text="${book.getAuthor}"/>
     <p th:text="${book.description}"/>
+</div>
+<div th:if="${bookList} != null">
+    <a th:href="@{'/book/searchResult?keyword=' + ${query} + '&page=' + ${nextPage}}">검색 결과 더보기</a>
 </div>
 </body>
 </html>
